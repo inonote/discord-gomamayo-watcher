@@ -64,6 +64,10 @@ export function registerReactionHandler(client: Client) {
       .setTimestamp(reaction.message.createdAt)
       .setURL(reaction.message.url);
 
-    channel.send({ content: "ゴママヨ発見！", embeds: [embed] });
+    try {
+      channel.send({ content: "ゴママヨ発見！", embeds: [embed] });
+    } catch (e) {
+      console.error(`ERR: 送信失敗: ${reaction.message.guildId}`, e);
+    }
   });
 }
