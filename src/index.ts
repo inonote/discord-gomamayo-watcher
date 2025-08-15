@@ -1,17 +1,17 @@
+import { env, exit } from "node:process";
 import {
   Client,
   GatewayIntentBits,
   InteractionType,
   Partials,
 } from "discord.js";
-import { env, exit } from "node:process";
 import { CommandRouter } from "./commands/CommandRouter";
+import { GetConfigCommand } from "./commands/GetConfigCommand";
+import { SetIgnoreChannelsCommand } from "./commands/SetIgnoreChannelsCommand";
+import { SetReactionEmojisCommand } from "./commands/SetReactionEmojis";
 import { SetReportChannelCommand } from "./commands/SetReportChannelCommand";
 import { db } from "./database/DatabaseClient";
 import { registerReactionHandler } from "./reaction-handler";
-import { SetReactionEmojisCommand } from "./commands/SetReactionEmojis";
-import { GetConfigCommand } from "./commands/GetConfigCommand";
-import { SetIgnoreChannelsCommand } from "./commands/SetIgnoreChannelsCommand";
 
 if (env.DISCORD_TOKEN === undefined || env.DISCORD_CLIENT_ID === undefined) {
   console.error("ERR: トークンが .env に指定されていない");

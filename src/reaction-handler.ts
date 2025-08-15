@@ -1,4 +1,4 @@
-import { Client, EmbedBuilder } from "discord.js";
+import { type Client, EmbedBuilder } from "discord.js";
 import { db } from "./database/DatabaseClient";
 
 const reactedMessageCache = new Map<string, true>();

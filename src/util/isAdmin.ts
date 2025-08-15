@@ -1,4 +1,7 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import {
+  type ChatInputCommandInteraction,
+  PermissionFlagsBits,
+} from "discord.js";
 
 export function isAdmin(interaction: ChatInputCommandInteraction): boolean {
   const member = interaction.member;

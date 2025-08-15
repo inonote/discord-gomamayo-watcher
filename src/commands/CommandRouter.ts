@@ -1,5 +1,10 @@
-import { ChatInputCommandInteraction, Client, REST, Routes } from "discord.js";
-import { ISlashCommand } from "./ISlashCommand";
+import {
+  type ChatInputCommandInteraction,
+  type Client,
+  REST,
+  Routes,
+} from "discord.js";
+import type { ISlashCommand } from "./ISlashCommand";
 
 type CommandName = string;
 

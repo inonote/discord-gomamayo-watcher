@@ -1,7 +1,10 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import { ISlashCommand } from "./ISlashCommand";
-import { isAdmin } from "../util/isAdmin";
+import {
+  type ChatInputCommandInteraction,
+  SlashCommandBuilder,
+} from "discord.js";
 import { db } from "../database/DatabaseClient";
+import { isAdmin } from "../util/isAdmin";
+import type { ISlashCommand } from "./ISlashCommand";
 
 export class GetConfigCommand implements ISlashCommand {
   register() {
