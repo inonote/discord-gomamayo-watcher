@@ -1,0 +1,26 @@
+{
+  "name": "discord-gomamayo-watcher",
+  "version": "1.0.0",
+  "description": "ゴママヨ絵文字リアクションを検出するくん",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch --env-file=.env ./src/index.ts",
+    "start": "node --env-file=.env ./dist/index.js",
+    "build": "tsc",
+    "format": "biome format --write",
+    "format:check": "biome check --write"
+  },
+  "author": "inonote",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "sqlite3": "^5.1.7"
+  }
+}

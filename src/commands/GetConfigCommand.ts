@@ -1,0 +1,35 @@
+import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import { ISlashCommand } from "./ISlashCommand";
+import { isAdmin } from "../util/isAdmin";
+import { db } from "../database/DatabaseClient";
+
+export class GetConfigCommand implements ISlashCommand {
+  register() {
+    return new SlashCommandBuilder()
+      .setName("get-config")
+      .setDescription("設定確認");
+  }
+
+  async exec(interaction: ChatInputCommandInteraction) {
+    if (!isAdmin(interaction)) {
+      await interaction.reply({
+        content: "エラー: コマンドを実行する権限がないです。",
+        ephemeral: true,
+      });
+      return;
+    }
+    if (interaction.guildId === null) {
+      await interaction.reply({
+        content: "エラー: サーバーで実行してください。",
+        ephemeral: true,
+      });
+      return;
+    }
+
+    const reportChannelId = await db.getReportChannel(interaction.guildId);
+    const text =
+      `報告チャンネル: ${!reportChannelId ? "(未設定)" : `https://discord.com/channels/${interaction.guildId}/${reportChannelId}`}\n` +
+      `監視対象絵文字: ${await db.getReactionEmojis(interaction.guildId)}`;
+    await interaction.reply(text);
+  }
+}
