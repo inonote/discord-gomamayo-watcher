@@ -27,9 +27,12 @@ export class GetConfigCommand implements ISlashCommand {
     }
 
     const reportChannelId = await db.getReportChannel(interaction.guildId);
+    const ignoreChannelIds = await db.getIgnoreChannels(interaction.guildId);
     const text =
       `報告チャンネル: ${!reportChannelId ? "(未設定)" : `https://discord.com/channels/${interaction.guildId}/${reportChannelId}`}\n` +
-      `監視対象絵文字: ${await db.getReactionEmojis(interaction.guildId)}`;
+      `監視対象絵文字: ${await db.getReactionEmojis(interaction.guildId)}\n` +
+      `監視対象外チャンネル: ${ignoreChannelIds.join(",")}\n` +
+      `${ignoreChannelIds.map((x) => `https://discord.com/channels/${interaction.guildId}/${x}`).join(" ")}`;
     await interaction.reply(text);
   }
 }

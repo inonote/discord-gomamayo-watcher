@@ -11,6 +11,7 @@ import { db } from "./database/DatabaseClient";
 import { registerReactionHandler } from "./reaction-handler";
 import { SetReactionEmojisCommand } from "./commands/SetReactionEmojis";
 import { GetConfigCommand } from "./commands/GetConfigCommand";
+import { SetIgnoreChannelsCommand } from "./commands/SetIgnoreChannelsCommand";
 
 if (env.DISCORD_TOKEN === undefined || env.DISCORD_CLIENT_ID === undefined) {
   console.error("ERR: トークンが .env に指定されていない");
@@ -44,6 +45,7 @@ const commandRouter = new CommandRouter(
 commandRouter.registerCommands([
   new SetReportChannelCommand(),
   new SetReactionEmojisCommand(),
+  new SetIgnoreChannelsCommand(),
   new GetConfigCommand(),
 ]);
 

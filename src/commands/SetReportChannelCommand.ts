@@ -39,7 +39,7 @@ export class SetReportChannelCommand implements ISlashCommand {
 
     if (await db.setReportChannel(interaction.guildId, interaction.channelId))
       await interaction.reply(
-        `設定しました。\nchannel_id: ${interaction.channelId}`,
+        `設定しました。\nhttps://discord.com/channels/${interaction.guildId}/${interaction.channelId}`,
       );
     else await interaction.reply(`エラー: 設定に失敗しました。`);
   }

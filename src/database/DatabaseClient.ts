@@ -14,6 +14,9 @@ class DatabaseClient {
     await this.db.exec(
       "CREATE TABLE IF NOT EXISTS reaction_emojis(guild_id text PRIMARY KEY,emojis text)",
     );
+    await this.db.exec(
+      "CREATE TABLE IF NOT EXISTS ignore_channels(guild_id text PRIMARY KEY,channel_ids text)",
+    );
   }
 
   async getReportChannel(guildId: string): Promise<string | null> {
@@ -71,6 +74,39 @@ class DatabaseClient {
       return ret.changes > 0;
     } catch (e) {
       console.error("ERR: setReactionEmojis", e);
+      return false;
+    }
+  }
+  async getIgnoreChannels(guildId: string): Promise<string[]> {
+    try {
+      const stmt = await this.db.prepare(
+        "SELECT channel_ids FROM ignore_channels WHERE guild_id = ?",
+      );
+      const ret = await stmt.get(guildId);
+      if (!ret) return [];
+
+      return (ret["channel_ids"] as string).split(",");
+    } catch (e) {
+      console.error("ERR: getIgnoreChannels", e);
+      return [];
+    }
+  }
+
+  async setIgnoreChannels(
+    guildId: string,
+    channelIds: string[],
+  ): Promise<boolean> {
+    try {
+      const stmt = await this.db.prepare(
+        "REPLACE INTO ignore_channels (guild_id, channel_ids) VALUES (?, ?)",
+      );
+      const ret = await stmt.run(
+        guildId,
+        channelIds.map((x) => x.trim()).join(","),
+      );
+      return ret.changes > 0;
+    } catch (e) {
+      console.error("ERR: setIgnoreChannels", e);
       return false;
     }
   }

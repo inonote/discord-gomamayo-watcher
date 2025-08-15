@@ -30,6 +30,11 @@ export function registerReactionHandler(client: Client) {
     const targetEmojis = await db.getReactionEmojis(reaction.message.guildId);
     if (!targetEmojis.some((x) => x === reaction.emoji.name)) return;
 
+    const ignoreChannelIds = await db.getIgnoreChannels(
+      reaction.message.guildId,
+    );
+    if (ignoreChannelIds.some((x) => x === reaction.message.channelId)) return;
+
     const reportChannelId = await db.getReportChannel(reaction.message.guildId);
     if (!reportChannelId) {
       console.error("ERR: reportChannelId === null");
